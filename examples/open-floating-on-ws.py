@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
 
+import sys
+import i3ipc
+
+if len(sys.argv) < 2:
+    print("{}: please specify workspace(s) start string(s)".
+          format(sys.argv[0]))
+    sys.exit(-1)
+
 # This example shows how to make any window that opens on a workspace floating
 
 # All workspaces that start with a string in this list will have their windows
 # open floating
-FLOATING_WORKSPACES = ['3']
+FLOATING_WORKSPACES = []
+for arg in sys.argv[1:]:
+    FLOATING_WORKSPACES.append(arg)
 
 
 def is_ws_floating(name):
@@ -14,8 +24,6 @@ def is_ws_floating(name):
 
     return False
 
-
-import i3ipc
 
 i3 = i3ipc.Connection()
 
